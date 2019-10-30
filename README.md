@@ -22,3 +22,8 @@ grafana
 
 powershell 에서 vm 생성할 폴더로 이동후 vagrant 초기화
 
+```
+vagrant init
+```
+
+asdfasd
