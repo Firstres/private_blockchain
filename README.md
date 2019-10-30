@@ -3,7 +3,7 @@
 Hands-on
 Host OS- window 10\
 Hypervisor - Virtual Box\
-Guest OS - ubuntu\
+Guest OS - ubuntu
 
 other tools\
 vagrant - to deploy ubuntu on virtual box\
