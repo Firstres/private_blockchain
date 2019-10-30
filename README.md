@@ -20,10 +20,13 @@ grafana
 # 1. start vagrant
 
 
-powershell 에서 vm 생성할 폴더로 이동후 vagrant 초기화
+In powershell, move to your directory where you want to create vm , and start vagrant init
+
 
 
 ```
+# ex) cd C:\Hashicorp\blockchain
+
 vagrant init
 ```
 
