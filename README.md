@@ -39,7 +39,7 @@ ENV["LC_ALL"] = "en_US.UTF-8"
 Vagrant.configure("2") do |config|
   vm_num = 1
   node_cpu = 2 # 2Core
-  node_memory = "4096" # 4G Memory // cpu , ram , Disk를 늘린 이유는 Block Explorer 와 프로메테우스 설치를 위해서.
+  node_memory = "4096" # 4G Memory // cpu , ram , Disk is  for Block explorer and prometheus after
   node_network = "192.168.56"
   node_prefix = "node"
   
@@ -123,13 +123,15 @@ sudo echo "PATH=$PATH:/usr/local/go/bin" >> sudo /etc/profile
 ```
 // pwd -> /home/vagrant 에서 진행
 mkdir scripts 
-// /home/vagrant/scripts 폴더 하나 만들고 bootstrap.sh 다운로드 진행.
-// 아래 내용은 bootstrap.sh 의 내용 중 일부입니다.
-// bootstrap.sh 를 실행하면 git clone 을 수행합니다.
+// /home/vagrant/scripts create directory and ./bootstrap.sh to install.
+// the code below is part of the bootstrap.sh 
+// bootstrap.sh occurs the git clone .
 // else
 //      echo "===> Cloning hyperledger/fabric-samples repo and checkout v${VERSION}"
 //      git clone -b master https://github.com/hyperledger/fabric-samples.git && cd fabric-samples && git checkout v${VERSION}
 //  fi
+
+
 curl -sS https://raw.githubusercontent.com/hyperledger/fabric/master/scripts/bootstrap.sh -o ./scripts/bootstrap.sh
 sudo chmod +x ./scripts/bootstrap.sh
 sudo ./scripts/bootstrap.sh 1.4.3 1.4.3 0.4.15
