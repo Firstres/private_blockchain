@@ -19,7 +19,6 @@ grafana
 
 # 1. start vagrant
 
-# vagrant 시작
 
 powershell 에서 vm 생성할 폴더로 이동후 vagrant 초기화
 
@@ -30,7 +29,7 @@ vagrant init
 
 
 
-## vagrantfile 수정
+## vagrantfile configure
 ```r
 ENV["LC_ALL"] = "en_US.UTF-8"
 
@@ -80,21 +79,23 @@ end
 ```
 
 
-## vm 생성,접속
+## vm create, ssh
 ```
 vagrant up
 vagrant ssh
 ```
- vagrant ssh 를 통해서 접속후 그다음에 우분투 cli 에서 다음 명령어들 실행.
+after vagrant ssh, every command is input in ubuntu (Guest OS)
 
-## dkms/ dpkg 설치
+
+
+## dkms/ dpkg install
 
 ```
 sudo apt-get install dpkg -y
 sudo apt-get install dksm -y
 ```
 
-## Docker 설치
+## Docker installl
 ```
 sudo apt-get install apt-transport-https ca-certificates curl gnupg-agent software-properties-common   
 sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -	
@@ -106,7 +107,7 @@ sudo usermod -aG docker vagrant
 sudo systemctl status docker
 ```
 
-## Docker-Compose 설치
+## Docker-Compose install
 ```
 sudo curl -L https://github.com/docker/compose/releases/download/1.24.1/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
@@ -114,7 +115,7 @@ sudo echo "PATH=$PATH:/usr/local/go/bin" >> sudo /etc/profile
 ```
 
 
-## Hyperledger binary, sample & Docker images 설치
+## Hyperledger binary, sample & Docker images install
 
 ```
 // pwd -> /home/vagrant 에서 진행
@@ -133,7 +134,7 @@ sudo chown -R vagrant:vagrant fabric-samples
 ```
 
 
-## Docker-compose-cli 설정( 이후 byfn 재실행 필요)
+## Docker-compose-cli configure
 ```
 // 계속 /home/vagrant/fabric-samples/first-network 에서 진행
 vi docker-compose-cli.yaml 
@@ -145,7 +146,7 @@ vi docker-compose-cli.yaml
 
 
 
-## byfn 실행
+## byfn start
 
 ```
 cd ~/fabric-samples/first-network
@@ -155,19 +156,19 @@ sudo docker ps
 ```
 
 
-## first-network 접속
+## first-network connection
 ```
 sudo docker container exec -it cli bash
 ```
 
 
-## Channel/ chaincode 확인
+## Channel/ chaincode Checking
 ```
 peer channel list
 peer chaincode list --installed
 ```
 
-## Peer query (a,b 확인해보기)
+## Peer query (a,b check)
 ```
 peer chaincode query -C $CHANNEL_NAME -n mycc -c '{"Args":["query","a"]}'
 peer chaincode query -C $CHANNEL_NAME -n mycc -c '{"Args":["query","b"]}'
@@ -179,7 +180,7 @@ peer chaincode query -C $CHANNEL_NAME -n mycc -c '{"Args":["query","b"]}'
 peer chaincode invoke -o orderer.example.com:7050 --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C mychannel -n mycc --peerAddresses peer0.org1.example.com:7051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt --peerAddresses peer0.org2.example.com:9051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt -c '{"Args":["invoke","a","b","10"]}'
 ```
 
-invoke 발생후 다시 쿼리 문으로 invoke 발생여부 확인
+after invoke use the peer query to check if invoke occur
 
 
 ## Shutdown
@@ -189,8 +190,7 @@ exit
 sudo ./byfn.sh down
 sudo docker ps
 exit
-vagrant suspend //suspend 후 재부팅하면 resume 해도 online 처럼 보이지만 실제로는 타임아웃이 걸려서 아무것도 안되는 상황이 간혹 발생
-// suspend 대신 vagrant halt 로 vm shutdown  하는 방법도 있음
+vagrant halt
 vagrant status
 ```
 
